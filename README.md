@@ -20,4 +20,4 @@
 
 ## Ссылка на мем
 
-[Абсолютно надежный мем](https://i.imgur.com/VKpq1bV.jpg "absolutely solid")
+![Абсолютно надежный мем](https://i.imgur.com/VKpq1bV.jpg "absolutely solid")
