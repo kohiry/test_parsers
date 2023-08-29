@@ -3,7 +3,9 @@ import os
 from dto import PhotoDTO, AlbumDTO
 import requests
 from abc import ABC, abstractmethod
-from pprint import pprint
+
+# from pprint import pprint
+import asyncio
 
 
 class PhotoDownloader(ABC):
@@ -75,10 +77,15 @@ class SavePhotoAlbum:
             # print(f"Сохранено: {photo_path}")
 
 
+class AsynchronPhotoDownloader(PhotoDownloader):
+    def get_albums(self) -> List[dict]:
+        pass
+
+    def get_photo(self, albums: List[AlbumDTO]) -> Tuple[AlbumDTO, PhotoDTO]:
+        pass
+
+
 def download_all_photos(downloader: PhotoDownloader, folder_path: str):
     albums: List[AlbumDTO] = downloader.get_albums()
     for album, photo in downloader.get_photo(albums):
         SavePhotoAlbum(folder_path).save(album, photo)
-
-
-# download_all_photos(SynchronPhotoDownloader(), "data")
