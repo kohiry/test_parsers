@@ -18,7 +18,7 @@ class PhotoDownloader(ABC):
 
 class SynchronPhotoDownloader(PhotoDownloader):
     def __init__(self):
-        self.url = "https://jsonplaceholder.typicode.com/"
+        self.url: str = "https://jsonplaceholder.typicode.com/"
 
     def get_albums(self):
         response = requests.get(self.url + "albums")
@@ -29,7 +29,7 @@ class SynchronPhotoDownloader(PhotoDownloader):
             ]
         return []
 
-    def get_photo(self, albums: List[AlbumDTO]):
+    def get_photo(self, albums: List[AlbumDTO]) -> Tuple[AlbumDTO, PhotoDTO]:
         for album in albums:
             # print(album.id)
             response = requests.get(self.url + f"photos?albumId={album.id}")
@@ -48,13 +48,13 @@ class SynchronPhotoDownloader(PhotoDownloader):
 
 
 class SavePhotoAlbum:
-    def __init__(self, save_folder):
+    def __init__(self, save_folder: str):
         # check main folder created or not
-        self.save_folder = save_folder
+        self.save_folder: str = save_folder
         SavePhotoAlbum.is_folder_here(save_folder)
 
     @staticmethod
-    def is_folder_here(save_folder) -> None:
+    def is_folder_here(save_folder: str) -> None:
         if not os.path.exists(save_folder):
             os.makedirs(save_folder)
 
@@ -81,4 +81,4 @@ def download_all_photos(downloader: PhotoDownloader, folder_path: str):
         SavePhotoAlbum(folder_path).save(album, photo)
 
 
-download_all_photos(SynchronPhotoDownloader(), "data")
+# download_all_photos(SynchronPhotoDownloader(), "data")

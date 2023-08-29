@@ -1,13 +1,18 @@
+from parser import download_all_photos, SynchronPhotoDownloader
+from decorator import timer
+
+
 class App:
     def __init__(self):
-        pass
+        self.folder_name: str = "data"
 
     def run(self):
-        pass
+        download_all_photos(SynchronPhotoDownloader(), self.folder_name)
 
 
+@timer
 def main():
-    pass
+    App().run()
 
 
 if __name__ == "__main__":
