@@ -1,24 +1,12 @@
+"""Модуль сo всеми видами парсеров."""
 from parser import (
     download_all_photos,
-    SynchronPhotoDownloader,
-    AsynchronPhotoDownloader,
+    SyncParser,
+    AsyncParser,
 )
-from decorator import timer
+from decorator import timer, save_app, AppList
 from abc import ABC, abstractmethod
 import asyncio
-
-
-class AppList:
-    apps = []
-
-    @classmethod
-    def add_class(cls, klass):
-        cls.apps.append(klass)
-
-
-def save_app(klass):
-    AppList.add_class(klass)
-    return klass
 
 
 class App(ABC):
@@ -28,24 +16,22 @@ class App(ABC):
 
 
 @save_app
-class SynchronApp(App):
+class SyncApp(App):
     def __init__(self):
         self.folder_name: str = "data"
 
     def run(self):
-        download_all_photos(SynchronPhotoDownloader(), self.folder_name)
+        download_all_photos(SyncParser(), self.folder_name)
 
 
 @save_app
-class AsynchronApp(App):
+class AsynApp(App):
     def __init__(self):
         self.folder_name: str = "data"
 
     async def run(self):
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(
-            download_all_photos(AsynchronPhotoDownloader(), self.folder_name)
-        )
+        loop.run_until_complete(download_all_photos(AsyncParser(), self.folder_name))
 
 
 @timer

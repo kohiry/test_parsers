@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 import asyncio
 
 
-class PhotoDownloader(ABC):
+class Parser(ABC):
     @abstractmethod
     def get_albums(self) -> List[dict]:
         pass
@@ -18,7 +18,7 @@ class PhotoDownloader(ABC):
         pass
 
 
-class SynchronPhotoDownloader(PhotoDownloader):
+class SyncParser(Parser):
     def __init__(self):
         self.url: str = "https://jsonplaceholder.typicode.com/"
 
@@ -77,7 +77,7 @@ class SavePhotoAlbum:
             # print(f"Сохранено: {photo_path}")
 
 
-class AsynchronPhotoDownloader(PhotoDownloader):
+class AsyncParser(Parser):
     def get_albums(self) -> List[dict]:
         pass
 
@@ -85,7 +85,7 @@ class AsynchronPhotoDownloader(PhotoDownloader):
         pass
 
 
-def download_all_photos(downloader: PhotoDownloader, folder_path: str):
+def download_all_photos(downloader: Parser, folder_path: str):
     albums: List[AlbumDTO] = downloader.get_albums()
     for album, photo in downloader.get_photo(albums):
         SavePhotoAlbum(folder_path).save(album, photo)
