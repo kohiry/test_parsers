@@ -3,26 +3,9 @@ from typing import List, Tuple
 import os
 from dto import PhotoDTO, AlbumDTO
 import requests
-from abc import ABC, abstractmethod
-
-import asyncio
 
 
-class Parser(ABC):
-    """Абстрактный класс парсера."""
-
-    @abstractmethod
-    def get_albums(self) -> List[AlbumDTO]:
-        """Метод получения списка альбомов."""
-        pass
-
-    @abstractmethod
-    def get_photo(self, albums: List[AlbumDTO]) -> Tuple[AlbumDTO, PhotoDTO]:
-        """Метод получения генератора возвращающего альбом и фото."""
-        pass
-
-
-class SyncParser(Parser):
+class SyncParser:
     """Класс синхронного парсера."""
 
     def __init__(self):
@@ -59,16 +42,6 @@ class SyncParser(Parser):
 
             for photo in photos:
                 yield (album, photo)
-
-
-class AsyncParser(Parser):
-    """Класс aсинхронного парсера."""
-
-    def get_albums(self) -> List[AlbumDTO]:
-        pass
-
-    def get_photo(self, albums: List[AlbumDTO]) -> Tuple[AlbumDTO, PhotoDTO]:
-        pass
 
 
 class SavePhotoAlbum:
@@ -108,7 +81,7 @@ class SavePhotoAlbum:
             # print(f"Сохранено: {photo_path}")
 
 
-def download_all_photos(downloader: Parser, folder_path: str):
+def download_all_photos(downloader: SyncParser, folder_path: str):
     """Метод для реализации парсинга и сохранения объектов."""
     albums: List[AlbumDTO] = downloader.get_albums()
     for album, photo in downloader.get_photo(albums):
