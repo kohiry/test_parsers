@@ -1,14 +1,16 @@
 """Модуль запуска приложнеия."""
+import asyncio
+from parser import download_all_photos
 
 
 class App:
     """Класс приложения."""
 
     def __init__(self):
-        pass
+        self.folder = "data"
 
     def run(self):
-        pass
+        asyncio.run(download_all_photos(self.folder))
 
 
 def main():
