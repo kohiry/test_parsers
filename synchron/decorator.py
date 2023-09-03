@@ -6,23 +6,6 @@
 import time
 
 
-class AppList:
-    """Класс, для формирования списка приложений."""
-
-    apps = []
-
-    @classmethod
-    def add_class(cls, klass):  # have bug with App, Import Error. klass : App
-        """Метод для добавления приложения в список."""
-        cls.apps.append(klass)
-
-
-def save_app(klass):
-    """Декоратор для формирования списка приложений."""
-    AppList.add_class(klass)
-    return klass
-
-
 def timer(func):
     """Декоратор принимает func."""
 

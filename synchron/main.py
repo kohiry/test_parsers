@@ -4,7 +4,6 @@ from parser import (
     SyncParser,
 )
 from decorator import timer
-import asyncio
 
 
 class SyncApp:
