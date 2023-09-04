@@ -30,7 +30,7 @@ class MultiprocParser:
                 # print(3)
                 continue
             album = queue_album.get()
-            print(album)
+            # print(album)
             if album is None:
                 break
 
@@ -40,7 +40,7 @@ class MultiprocParser:
                 print("Failed connect.")
                 break
             photos_data = response.json()
-            print(photos_data)
+            # print(photos_data)
             for photo in photos_data:
                 response_photo_solo = requests.get(photo["url"])
 
@@ -84,7 +84,7 @@ class SavePhotoAlbum:
                 continue
 
             item = queue.get()
-            print(item)
+            # print(item)
             if item is None:
                 break
             album, photo = item
