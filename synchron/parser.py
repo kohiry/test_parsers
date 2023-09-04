@@ -75,7 +75,7 @@ class SavePhotoAlbum:
             f"{photo.id}_{photo.title}{photo_extension}",
         )
         photo_response = requests.get(photo.url)
-        print(type(photo_response.content))
+        # print(type(photo_response.content))
 
         with open(photo_path, "wb") as photo_file:
             photo_file.write(photo_response.content)
