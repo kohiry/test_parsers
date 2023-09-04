@@ -27,7 +27,8 @@ class App:
 @timer
 def main():
     """Основная функция для запуска приложения."""
-    App.run()
+    print("Start app :)")
+    App().run()
 
 
 if __name__ == "__main__":
