@@ -13,6 +13,8 @@
 ## Использование
 
 Чтобы использовать программу, необходимо
+    `pip install poetry`
+    `poetry install` or `poetry shell`
     `python main.py`.
 
 ## ООП, SOLID
