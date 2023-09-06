@@ -35,13 +35,18 @@ class SyncParser:
                 break
             photos_data = response.json()
             # print(photos_data)
-            photos = [
-                PhotoDTO(id=photo["id"], title=photo["title"], url=photo["url"])
-                for photo in photos_data
-            ]
+            for photo in photos_data:
+                response_photo_solo = requests.get(photo["url"])
 
-            for photo in photos:
-                yield (album, photo)
+                yield (
+                    album,
+                    PhotoDTO(
+                        id=photo["id"],
+                        title=photo["title"],
+                        url=photo["url"],
+                        content=response_photo_solo.content,
+                    ),
+                )
 
 
 class SavePhotoAlbum:
@@ -74,11 +79,10 @@ class SavePhotoAlbum:
             self.save_folder + "/" + album.title,
             f"{photo.id}_{photo.title}{photo_extension}",
         )
-        photo_response = requests.get(photo.url)
         # print(type(photo_response.content))
 
         with open(photo_path, "wb") as photo_file:
-            photo_file.write(photo_response.content)
+            photo_file.write(photo.content)
             # print(f"Сохранено: {photo_path}")
 
 

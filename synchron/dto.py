@@ -14,6 +14,7 @@ class PhotoDTO(BaseModel):
     id: int
     title: str
     url: str
+    content: bytes
 
 
 class AlbumDTO(BaseModel):
